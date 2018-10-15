@@ -29,7 +29,7 @@ namespace CryptoViewer.Components
         /// <summary>
         /// Тип криптопровайдера
         /// </summary>
-        public int ProviderType { get => System.Convert.ToInt32(textBox2.Text); set => textBox2.Text = value.ToString(); }
+        public int ProviderType { get => !string.IsNullOrWhiteSpace(textBox2.Text) ? System.Convert.ToInt32(textBox2.Text) : 0; set => textBox2.Text = value > 0 ? value.ToString() : null; }
 
         #endregion
 

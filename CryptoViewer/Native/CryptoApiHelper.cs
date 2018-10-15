@@ -64,6 +64,27 @@ namespace CryptoViewer.Native
             return providerHandle;
         }
 
+        public static SafeProvHandleImpl AcquireProvider(CspParameters providerParameters)
+        {
+            var providerHandle = SafeProvHandleImpl.InvalidHandle;
+
+
+            var dwFlags = Constants.CRYPT_VERIFYCONTEXT;
+
+            if ((providerParameters.Flags & CspProviderFlags.UseMachineKeyStore) != CspProviderFlags.NoFlags)
+            {
+                dwFlags |= Constants.CRYPT_MACHINE_KEYSET;
+            }
+
+            if (!CryptoApi.CryptAcquireContext(ref providerHandle, providerParameters.KeyContainerName, providerParameters.ProviderName, (uint)providerParameters.ProviderType, dwFlags))
+            {
+                throw CreateWin32Error();
+            }
+
+            return providerHandle;
+        }
+
+
         public static SafeProvHandleImpl CreateProvider(CspParameters providerParameters)
         {
             var providerHandle = SafeProvHandleImpl.InvalidHandle;
@@ -143,6 +164,30 @@ namespace CryptoViewer.Native
             }
             return installedCSPs;
         }
+
+        public static Dictionary<string, int> GetProviderTypes()
+        {
+            Dictionary<string, int> installedCSPs = new Dictionary<string, int>();
+            uint cbName;
+            uint dwType;
+            uint dwIndex;
+            StringBuilder pszName;
+            dwIndex = 0;
+            dwType = 1;
+            cbName = 0;
+            while (CryptoApi.CryptEnumProviderTypes(dwIndex, IntPtr.Zero, 0, ref dwType, null, ref cbName))
+            {
+                pszName = new StringBuilder((int)cbName);
+
+                if (CryptoApi.CryptEnumProviderTypes(dwIndex++, IntPtr.Zero, 0, ref dwType, pszName, ref cbName))
+                {
+                    installedCSPs.Add(pszName.ToString(), (int)dwType);
+                }
+            }
+            return installedCSPs;
+        }
+
+
 
         #endregion
 

@@ -25,13 +25,14 @@ namespace CryptoViewer.Views
         private void refreshProviders()
         {
             treeView1.BeginUpdate();
-                treeView1.Nodes.Clear();
+            treeView1.Nodes.Clear();
             try
             {
-                var providers=CryptoViewer.Native.CryptoApiHelper.GetProviders();
-                foreach (var provider in providers) {
-                    var node = treeView1.Nodes.Add(provider.Key);
-                    node.Tag = provider.Value;
+                var providerTypes = CryptoViewer.Native.CryptoApiHelper.GetProviderTypes();
+                foreach (var providerType in providerTypes)
+                {
+                    var node = treeView1.Nodes.Add(providerType.Value.ToString(), providerType.Key);
+                    //node.Tag = providerType.Value;
                 }
             }
             catch (Exception)
@@ -40,14 +41,59 @@ namespace CryptoViewer.Views
 
             }
 
+            try
+            {
+                var providerTypes = CryptoViewer.Native.CryptoApiHelper.GetProviders();
+                foreach (var providerType in providerTypes)
+                {
+                    var nodes = treeView1.Nodes.Find(providerType.Value.ToString(), false);
+                    if (nodes.Length > 0)
+                    {
+                        var node = nodes[0].Nodes.Add(providerType.Key);
+                        node.Tag = providerType.Value;
+                    }
+                    else
+                    {
+                        var node = treeView1.Nodes.Add(providerType.Key);
+                        node.Tag = providerType.Value;
+                    }
+
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
             treeView1.EndUpdate();
 
         }
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            cryptoproviderParamsComponent1.ProviderName = e.Node.Text;
-            cryptoproviderParamsComponent1.ProviderType =(int) e.Node.Tag;
+            string providerName = null;
+            int providerType = 0;
+
+            if (e.Node != null)
+            {
+                providerName = e.Node.Text;
+                if (e.Node.Tag != null)
+                {
+                    providerType = (int)e.Node.Tag;
+                }
+            }
+            cryptoproviderParamsComponent1.ProviderName = providerName;
+            cryptoproviderParamsComponent1.ProviderType = providerType;
+
+
+            //var providerHandler = CryptoViewer.Native.CryptoApiHelper.AcquireProvider(new System.Security.Cryptography.CspParameters(providerType, providerName));
+
+            //CryptoViewer.Native.CryptoApiHelper.getHash
+
+
         }
+
     }
 }
+

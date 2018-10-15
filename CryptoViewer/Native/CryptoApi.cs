@@ -29,6 +29,14 @@ namespace CryptoViewer.Native
             StringBuilder pszProvName,
             ref uint pcbProvName);
 
+        [DllImport("advapi32.dll", EntryPoint = "CryptEnumProviderTypes", SetLastError = true)]
+        public static extern bool CryptEnumProviderTypes(
+                   uint dwIndex,
+                   IntPtr pdwReserved,
+                   uint dwFlags,
+                   ref uint pdwProvType,
+                   StringBuilder pszProvName,
+                   ref uint pcbProvName);
 
         [return: MarshalAs(UnmanagedType.Bool)]
         [DllImport("advapi32.dll", CharSet = CharSet.Auto, SetLastError = true)]
