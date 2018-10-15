@@ -90,9 +90,15 @@ namespace CryptoViewer.Views
             {
                 var providerHandle = CryptoViewer.Native.CryptoApiHelper.AcquireProvider(new System.Security.Cryptography.CspParameters(providerType, providerName));
                 var algorithms = CryptoViewer.Native.CryptoApiHelper.GetProviderAlgorithms(providerHandle);
+                cryptoAlgorithmsComponent1.Algorithms = algorithms;
+
                 var cspInfo = CryptoViewer.Native.CryptoApiHelper.GetCSPInfo(providerHandle);
                 cspInfoComponent1.CSPName = cspInfo.Name;
                 cspInfoComponent1.CSPVersion = cspInfo.Version;
+
+            }
+            else {
+                cryptoAlgorithmsComponent1.Algorithms = null;
             }
 
             

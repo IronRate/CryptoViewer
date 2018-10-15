@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\CryptoAlgorithmsComponent.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Components\CryptoAlgorithmsComponent.Designer.cs">
+      <DependentUpon>CryptoAlgorithmsComponent.cs</DependentUpon>
+    </Compile>
     <Compile Include="Components\CryptoproviderParamsComponent.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -75,6 +81,9 @@
     <Compile Include="Views\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Components\CryptoAlgorithmsComponent.resx">
+      <DependentUpon>CryptoAlgorithmsComponent.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Components\CryptoproviderParamsComponent.resx">
       <DependentUpon>CryptoproviderParamsComponent.cs</DependentUpon>
     </EmbeddedResource>
