@@ -38,6 +38,10 @@ namespace CryptoViewer.Native
                    StringBuilder pszProvName,
                    ref uint pcbProvName);
 
+        public static uint GET_ALG_CLASS(uint x) {
+            return x & (7 << 13);
+        }
+
 
 
         [return: MarshalAs(UnmanagedType.Bool)]

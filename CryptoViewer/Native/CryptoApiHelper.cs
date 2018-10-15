@@ -226,19 +226,19 @@ namespace CryptoViewer.Native
         {
             List<ProviderAlgorithm> algorithms = new List<ProviderAlgorithm>();
             uint dataLen = 0;
-            PROVENUMALGS alg;
+            PROVENUMALGS_EX alg;
 
-            if (CryptoApi.CryptGetProvParam(providerHandler, Constants.PP_ENUMALGS, (byte[])null, ref dataLen, 0x1))
+            if (CryptoApi.CryptGetProvParam(providerHandler, Constants.PP_ENUMALGS_EX, (byte[])null, ref dataLen, 0x1))
             {
                 var byteBuffer = new byte[dataLen];
-                if (CryptoApi.CryptGetProvParam(providerHandler, Constants.PP_ENUMALGS, byteBuffer, ref dataLen, 0x1))
+                if (CryptoApi.CryptGetProvParam(providerHandler, Constants.PP_ENUMALGS_EX, byteBuffer, ref dataLen, 0x1))
                 {
                     alg = getAlgInfo(byteBuffer);
                     algorithms.Add(new ProviderAlgorithm(alg));
-                    while (CryptoApi.CryptGetProvParam(providerHandler, Constants.PP_ENUMALGS, (byte[])null, ref dataLen, 0x2))
+                    while (CryptoApi.CryptGetProvParam(providerHandler, Constants.PP_ENUMALGS_EX, (byte[])null, ref dataLen, 0x2))
                     {
                         byteBuffer = new byte[dataLen];
-                        if (CryptoApi.CryptGetProvParam(providerHandler, Constants.PP_ENUMALGS, byteBuffer, ref dataLen, 0x2))
+                        if (CryptoApi.CryptGetProvParam(providerHandler, Constants.PP_ENUMALGS_EX, byteBuffer, ref dataLen, 0x2))
                         {
                             alg = getAlgInfo(byteBuffer);
                             algorithms.Add(new ProviderAlgorithm(alg));
@@ -253,13 +253,13 @@ namespace CryptoViewer.Native
                 throw CreateWin32Error();
             };
 
-            unsafe PROVENUMALGS getAlgInfo(byte[] buff)
+            unsafe PROVENUMALGS_EX getAlgInfo(byte[] buff)
             {
-                PROVENUMALGS result;
+                PROVENUMALGS_EX result;
                 fixed (void *h= buff)
                 {
                     var ptr = new IntPtr(h);
-                    result = Marshal.PtrToStructure<PROVENUMALGS>(ptr);
+                    result = Marshal.PtrToStructure<PROVENUMALGS_EX>(ptr);
                     //var handle = GCHandle.Alloc(buff, GCHandleType.Pinned);
                     //var a = Marshal.PtrToStructure<PROVENUMALGS>(handle.AddrOfPinnedObject());
                     //handle.Free();
@@ -270,6 +270,8 @@ namespace CryptoViewer.Native
 
             return algorithms;
         }
+
+
 
         public static CSPInfo GetCSPInfo(SafeProvHandleImpl providerHandler)
         {

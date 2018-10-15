@@ -451,6 +451,15 @@ namespace CryptoViewer.Native
 
         #endregion
 
+        #region Классы алгоритомов
+
+        internal const int ALG_CLASS_SIGNATURE = (1 << 13);
+        internal const int ALG_CLASS_DATA_ENCRYPT = (3 << 13);
+        internal const int ALG_CLASS_HASH = (4 << 13);
+        internal const int ALG_CLASS_KEY_EXCHANGE = (5 << 13);
+
+
+        #endregion
 
         // ReSharper restore InconsistentNaming
     }
