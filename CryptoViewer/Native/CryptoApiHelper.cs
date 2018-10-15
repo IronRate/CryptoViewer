@@ -114,6 +114,9 @@ namespace CryptoViewer.Native
             return dwFlags;
         }
 
+
+
+
         public static void SetProviderParameter(SafeProvHandleImpl providerHandle, int keyNumber, uint keyParamId, IntPtr keyParamValue)
         {
             if ((keyParamId == Constants.PP_KEYEXCHANGE_PIN) || (keyParamId == Constants.PP_SIGNATURE_PIN))
@@ -138,11 +141,34 @@ namespace CryptoViewer.Native
             }
         }
 
+
+        public static string GetProviderParameterAsString(SafeProvHandleImpl providerHandle, uint paramId)
+        {
+            StringBuilder paramValue = null;
+            uint dwDataLen = 0;
+            if (CryptoApi.CryptGetProvParam(providerHandle, paramId, paramValue, ref dwDataLen, 0))
+            {
+                paramValue = new StringBuilder((int)dwDataLen);
+                CryptoApi.CryptGetProvParam(providerHandle, paramId, paramValue, ref dwDataLen, 0);
+            }
+            else
+            {
+                throw CreateWin32Error();
+            }
+            return paramValue?.ToString();
+        }
         #endregion
+
+
+
 
 
         #region Fo work with cryptoproviders
 
+        /// <summary>
+        /// Вернет список криптопровайдеров
+        /// </summary>
+        /// <returns></returns>
         public static Dictionary<string, int> GetProviders()
         {
             Dictionary<string, int> installedCSPs = new Dictionary<string, int>();
@@ -165,6 +191,10 @@ namespace CryptoViewer.Native
             return installedCSPs;
         }
 
+        /// <summary>
+        /// Вернет список типолв криптопровайдеров
+        /// </summary>
+        /// <returns></returns>
         public static Dictionary<string, int> GetProviderTypes()
         {
             Dictionary<string, int> installedCSPs = new Dictionary<string, int>();
@@ -183,11 +213,75 @@ namespace CryptoViewer.Native
                 {
                     installedCSPs.Add(pszName.ToString(), (int)dwType);
                 }
+                else
+                {
+
+                    throw CreateWin32Error();
+                }
             }
             return installedCSPs;
         }
 
+        public static List<ProviderAlgorithm> GetProviderAlgorithms(SafeProvHandleImpl providerHandler)
+        {
+            List<ProviderAlgorithm> algorithms = new List<ProviderAlgorithm>();
+            uint dataLen = 0;
+            PROVENUMALGS alg;
 
+            if (CryptoApi.CryptGetProvParam(providerHandler, Constants.PP_ENUMALGS, (byte[])null, ref dataLen, 0x1))
+            {
+                var byteBuffer = new byte[dataLen];
+                if (CryptoApi.CryptGetProvParam(providerHandler, Constants.PP_ENUMALGS, byteBuffer, ref dataLen, 0x1))
+                {
+                    alg = getAlgInfo(byteBuffer);
+                    algorithms.Add(new ProviderAlgorithm(alg));
+                    while (CryptoApi.CryptGetProvParam(providerHandler, Constants.PP_ENUMALGS, (byte[])null, ref dataLen, 0x2))
+                    {
+                        byteBuffer = new byte[dataLen];
+                        if (CryptoApi.CryptGetProvParam(providerHandler, Constants.PP_ENUMALGS, byteBuffer, ref dataLen, 0x2))
+                        {
+                            alg = getAlgInfo(byteBuffer);
+                            algorithms.Add(new ProviderAlgorithm(alg));
+
+                        }
+                    }
+
+                }
+            }
+            else
+            {
+                throw CreateWin32Error();
+            };
+
+            unsafe PROVENUMALGS getAlgInfo(byte[] buff)
+            {
+                PROVENUMALGS result;
+                fixed (void *h= buff)
+                {
+                    var ptr = new IntPtr(h);
+                    result = Marshal.PtrToStructure<PROVENUMALGS>(ptr);
+                    //var handle = GCHandle.Alloc(buff, GCHandleType.Pinned);
+                    //var a = Marshal.PtrToStructure<PROVENUMALGS>(handle.AddrOfPinnedObject());
+                    //handle.Free();
+                }
+                return result;
+            }
+
+
+            return algorithms;
+        }
+
+        public static CSPInfo GetCSPInfo(SafeProvHandleImpl providerHandler)
+        {
+            CSPInfo info = null;
+
+
+            info = new CSPInfo(
+                GetProviderParameterAsString(providerHandler, Constants.PP_NAME),
+                GetProviderParameterAsString(providerHandler, Constants.PP_VERSION)
+                );
+            return info;
+        }
 
         #endregion
 

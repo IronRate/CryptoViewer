@@ -148,6 +148,43 @@ namespace CryptoViewer.Native
 
         #region Параметры криптографического провайдера
 
+        /// <summary>
+        /// Перечисление алгоритмов для CryptgetProvParam
+        /// </summary>
+        public const int PP_ENUMALGS = 0x1;
+
+        public const int PP_ENUMALGS_EX = 0x16;
+
+        /// <summary>
+        /// Для перечисления контейнеров
+        /// </summary>
+        public const int PP_ENUMCONTAINERS = 0x2;
+
+        public const int PP_ADMIN_PIN = 0x1F;
+
+        /// <summary>
+        /// Not used
+        /// </summary>
+        public const int PP_APPLI_CERT = 0x12;
+
+        /// <summary>
+        /// Not used
+        /// </summary>
+        public const int PP_CHANGE_PASSWORD = 0x7;
+
+        /// <summary>
+        /// Вернет цепочку сертификатов
+        /// </summary>
+        public const int PP_CERTCHAIN = 0x9;
+
+        /// <summary>
+        /// Вернет имя текущего контейнера
+        /// </summary>
+        public const int PP_CONTAINER = 0x6;
+
+
+        public const int PP_CRYPT_COUNT_KEY_USE = 0x29;
+
         public const int PP_CLIENT_HWND = 1;
 
         /// <summary>
@@ -164,6 +201,38 @@ namespace CryptoViewer.Native
         /// Задаёт пароль (PIN) для доступа к ключу AT_SIGNATURE.
         /// </summary>
         public const int PP_SIGNATURE_PIN = 0x21;
+
+
+        public const int PP_KEYSET_TYPE = 0x1B;
+
+        public const int PP_KEYSPEC = 0x27;
+
+        public const int PP_KEYX_KEYSIZE_INC = 0x23;
+
+        /// <summary>
+        /// Name of CSP
+        /// </summary>
+        public const int PP_NAME = 0x4;
+
+        /// <summary>
+        /// Version of CSP
+        /// </summary>
+        public const int PP_VERSION = 0x5;
+
+        public const int PP_PROVTYPE = 0x10;
+
+        /// <summary>
+        /// Session key size
+        /// </summary>
+        public const int PP_SESSION_KEYSIZE = 0x14;
+
+        /// <summary>
+        /// name of smartcadr reader
+        /// </summary>
+        public const int PP_SMARTCARD_READER = 0x2B;
+
+
+        public const int PP_UNIQUE_CONTAINER = 0x24;
 
         #endregion
 

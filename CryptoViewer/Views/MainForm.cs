@@ -86,10 +86,16 @@ namespace CryptoViewer.Views
             cryptoproviderParamsComponent1.ProviderName = providerName;
             cryptoproviderParamsComponent1.ProviderType = providerType;
 
+            if (providerType != 0)
+            {
+                var providerHandle = CryptoViewer.Native.CryptoApiHelper.AcquireProvider(new System.Security.Cryptography.CspParameters(providerType, providerName));
+                var algorithms = CryptoViewer.Native.CryptoApiHelper.GetProviderAlgorithms(providerHandle);
+                var cspInfo = CryptoViewer.Native.CryptoApiHelper.GetCSPInfo(providerHandle);
+                cspInfoComponent1.CSPName = cspInfo.Name;
+                cspInfoComponent1.CSPVersion = cspInfo.Version;
+            }
 
-            //var providerHandler = CryptoViewer.Native.CryptoApiHelper.AcquireProvider(new System.Security.Cryptography.CspParameters(providerType, providerName));
-
-            //CryptoViewer.Native.CryptoApiHelper.getHash
+            
 
 
         }

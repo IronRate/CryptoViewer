@@ -34,6 +34,7 @@
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.cryptoproviderParamsComponent1 = new CryptoViewer.Components.CryptoproviderParamsComponent();
+            this.cspInfoComponent1 = new CryptoViewer.Components.CSPInfoComponent();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -79,16 +80,27 @@
             this.cryptoproviderParamsComponent1.Dock = System.Windows.Forms.DockStyle.Top;
             this.cryptoproviderParamsComponent1.Location = new System.Drawing.Point(253, 25);
             this.cryptoproviderParamsComponent1.Name = "cryptoproviderParamsComponent1";
-            this.cryptoproviderParamsComponent1.ProviderName = null;
-            this.cryptoproviderParamsComponent1.ProviderType = ((int)(0u));
+            this.cryptoproviderParamsComponent1.ProviderName = "";
+            this.cryptoproviderParamsComponent1.ProviderType = 0;
             this.cryptoproviderParamsComponent1.Size = new System.Drawing.Size(880, 52);
             this.cryptoproviderParamsComponent1.TabIndex = 3;
+            // 
+            // cspInfoComponent1
+            // 
+            this.cspInfoComponent1.CSPName = "";
+            this.cspInfoComponent1.CSPVersion = "";
+            this.cspInfoComponent1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cspInfoComponent1.Location = new System.Drawing.Point(253, 77);
+            this.cspInfoComponent1.Name = "cspInfoComponent1";
+            this.cspInfoComponent1.Size = new System.Drawing.Size(880, 69);
+            this.cspInfoComponent1.TabIndex = 4;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1133, 493);
+            this.Controls.Add(this.cspInfoComponent1);
             this.Controls.Add(this.cryptoproviderParamsComponent1);
             this.Controls.Add(this.splitter1);
             this.Controls.Add(this.treeView1);
@@ -110,5 +122,6 @@
         private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.Splitter splitter1;
         private Components.CryptoproviderParamsComponent cryptoproviderParamsComponent1;
+        private Components.CSPInfoComponent cspInfoComponent1;
     }
 }

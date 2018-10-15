@@ -38,6 +38,8 @@ namespace CryptoViewer.Native
                    StringBuilder pszProvName,
                    ref uint pcbProvName);
 
+
+
         [return: MarshalAs(UnmanagedType.Bool)]
         [DllImport("advapi32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool CryptAcquireContext([In] [Out] ref SafeProvHandleImpl hProv, [In] string pszContainer, [In] string pszProvider, [In] uint dwProvType, [In] uint dwFlags);
@@ -55,6 +57,11 @@ namespace CryptoViewer.Native
         [return: MarshalAs(UnmanagedType.Bool)]
         [DllImport("advapi32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern bool CryptGetProvParam([In] SafeProvHandleImpl hProv, [In] uint dwParam, [In] [Out] byte[] pbData, ref uint dwDataLen, [In] uint dwFlags);
+
+        [return: MarshalAs(UnmanagedType.Bool)]
+        [DllImport("advapi32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+        public static extern bool CryptGetProvParam([In] SafeProvHandleImpl hProv, [In] uint dwParam, [In] [Out] StringBuilder pszName, ref uint dwDataLen, [In] uint dwFlags);
+
 
         [return: MarshalAs(UnmanagedType.Bool)]
         [DllImport("advapi32.dll", SetLastError = true)]

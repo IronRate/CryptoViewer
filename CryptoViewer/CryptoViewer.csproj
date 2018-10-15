@@ -52,9 +52,17 @@
     <Compile Include="Components\CryptoproviderParamsComponent.Designer.cs">
       <DependentUpon>CryptoproviderParamsComponent.cs</DependentUpon>
     </Compile>
+    <Compile Include="Components\CSPInfoComponent.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Components\CSPInfoComponent.Designer.cs">
+      <DependentUpon>CSPInfoComponent.cs</DependentUpon>
+    </Compile>
     <Compile Include="Native\Constants.cs" />
     <Compile Include="Native\CryptoApi.cs" />
     <Compile Include="Native\CryptoApiHelper.cs" />
+    <Compile Include="Native\CSPInfo.cs" />
+    <Compile Include="Native\ProviderAlgorithm.cs" />
     <Compile Include="Native\SafeHashHandleImpl.cs" />
     <Compile Include="Native\SafeKeyHandleImpl.cs" />
     <Compile Include="Native\SafeProvHandleImpl.cs" />
@@ -69,6 +77,9 @@
     </Compile>
     <EmbeddedResource Include="Components\CryptoproviderParamsComponent.resx">
       <DependentUpon>CryptoproviderParamsComponent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Components\CSPInfoComponent.resx">
+      <DependentUpon>CSPInfoComponent.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
