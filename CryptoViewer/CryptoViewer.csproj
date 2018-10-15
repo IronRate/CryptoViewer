@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\CryptoproviderParamsComponent.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Components\CryptoproviderParamsComponent.Designer.cs">
+      <DependentUpon>CryptoproviderParamsComponent.cs</DependentUpon>
+    </Compile>
     <Compile Include="Native\Constants.cs" />
     <Compile Include="Native\CryptoApi.cs" />
     <Compile Include="Native\CryptoApiHelper.cs" />
@@ -61,6 +67,9 @@
     <Compile Include="Views\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Components\CryptoproviderParamsComponent.resx">
+      <DependentUpon>CryptoproviderParamsComponent.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -86,8 +95,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Components\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

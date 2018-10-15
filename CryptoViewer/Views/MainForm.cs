@@ -43,5 +43,11 @@ namespace CryptoViewer.Views
             treeView1.EndUpdate();
 
         }
+
+        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            cryptoproviderParamsComponent1.ProviderName = e.Node.Text;
+            cryptoproviderParamsComponent1.ProviderType =(int) e.Node.Tag;
+        }
     }
 }

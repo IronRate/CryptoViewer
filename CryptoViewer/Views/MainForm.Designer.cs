@@ -33,6 +33,7 @@
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.splitter1 = new System.Windows.Forms.Splitter();
+            this.cryptoproviderParamsComponent1 = new CryptoViewer.Components.CryptoproviderParamsComponent();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -63,6 +64,7 @@
             this.treeView1.Name = "treeView1";
             this.treeView1.Size = new System.Drawing.Size(250, 468);
             this.treeView1.TabIndex = 1;
+            this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             // 
             // splitter1
             // 
@@ -72,11 +74,22 @@
             this.splitter1.TabIndex = 2;
             this.splitter1.TabStop = false;
             // 
+            // cryptoproviderParamsComponent1
+            // 
+            this.cryptoproviderParamsComponent1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cryptoproviderParamsComponent1.Location = new System.Drawing.Point(253, 25);
+            this.cryptoproviderParamsComponent1.Name = "cryptoproviderParamsComponent1";
+            this.cryptoproviderParamsComponent1.ProviderName = null;
+            this.cryptoproviderParamsComponent1.ProviderType = ((int)(0u));
+            this.cryptoproviderParamsComponent1.Size = new System.Drawing.Size(880, 52);
+            this.cryptoproviderParamsComponent1.TabIndex = 3;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1133, 493);
+            this.Controls.Add(this.cryptoproviderParamsComponent1);
             this.Controls.Add(this.splitter1);
             this.Controls.Add(this.treeView1);
             this.Controls.Add(this.toolStrip1);
@@ -96,5 +109,6 @@
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.Splitter splitter1;
+        private Components.CryptoproviderParamsComponent cryptoproviderParamsComponent1;
     }
 }
