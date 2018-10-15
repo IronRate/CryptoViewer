@@ -16,5 +16,32 @@ namespace CryptoViewer.Views
         {
             InitializeComponent();
         }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            this.refreshProviders();
+        }
+
+        private void refreshProviders()
+        {
+            treeView1.BeginUpdate();
+                treeView1.Nodes.Clear();
+            try
+            {
+                var providers=CryptoViewer.Native.CryptoApiHelper.GetProviders();
+                foreach (var provider in providers) {
+                    var node = treeView1.Nodes.Add(provider.Key);
+                    node.Tag = provider.Value;
+                }
+            }
+            catch (Exception)
+            {
+
+
+            }
+
+            treeView1.EndUpdate();
+
+        }
     }
 }
